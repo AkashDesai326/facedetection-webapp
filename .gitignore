@@ -244,6 +244,13 @@ dmypy.json
 # pytype static type analyzer
 .pytype/
 
+media/StudentDetails.csv
+media/Attendance/*
+media/ImagesUnknown/*
+media/TrainingImage/*
+media/TrainingImageLabel/*
+
+
 # operating system-related files
 *.DS_Store #file properties cache/storage on macOS
 Thumbs.db #thumbnail cache on Windows
