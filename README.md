@@ -2,7 +2,7 @@
 Face recognition and identification using opencv,videostream implemented in django
 
 
-## To run local
+## To setup project
 
 1.  **Python3** should be installed on the system.
 2. install dependency: \
