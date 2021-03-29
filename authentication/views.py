@@ -43,6 +43,7 @@ def authadmin(request):
     if admin is not None:
         if check_password(request.POST.get('password'), admin.pwd):
             request.session['user'] = admin.email
+            request.session['name'] = admin.fullname
             return render( request , 'index.html')
         else:
             return render(request, 'login.html', {'error': 'invalid password'})

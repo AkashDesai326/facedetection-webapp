@@ -63,7 +63,15 @@
                                     <nav class="main-menu ">
                                         <ul class="menu-area-main">
                                             <li class="active"><a href="index.html">Home</a></li>
-                                            <li><a href="#courses">Features </a></li>
+                                            <li>
+                                                <div class="dropdown">
+                                                    <a class="dropbtn">Feature</a>
+                                                    <div class="dropdown-content">
+                                                        <a href="/adminuser/">Admin</a>
+                                                        <a href="#">Student</a>
+                                                    </div>
+                                                </div>
+                                            </li>
                                             <li><a href="#about">About</a></li>
                                             <li><a href="#learn">My Profile</a></li>
                                             <li><a href="#contact">Contact</a></li>
@@ -78,10 +86,11 @@
                                             <img src="{% static 'images/search_icon.png' %}" alt="#"/>
                                         </a></li>
                                         {% if request.session.user is None %}
-                                            <li><a href="/login/">login</a></li>
-                                            <li><a href="/signup/">signup</a></li>
+                                        <li><a href="/login/">login</a></li>
+                                        <li><a href="/signup/">signup</a></li>
                                         {% else %}
-                                            <li><a href="/logout/">logout</a></li>
+                                        <li><a>{{request.session.name}}</a></li>
+                                        <li><a href="/logout/">logout</a></li>
                                         {% endif %}
                                     </ul>
                                 </nav>
