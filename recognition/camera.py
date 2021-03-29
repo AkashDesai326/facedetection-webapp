@@ -10,6 +10,14 @@ from PIL import Image
 from django.conf import settings
 from .models import Student, Attendance
 
+if not os.path.isdir(os.path.join(settings.MEDIA_ROOT, "TrainingImage")):
+    os.makedirs(os.path.join(settings.MEDIA_ROOT, "TrainingImage"))
+
+if not os.path.isdir(os.path.join(settings.MEDIA_ROOT, "TrainingImageLabel")):
+    os.makedirs(os.path.join(settings.MEDIA_ROOT, "TrainingImageLabel"))
+
+if not os.path.isdir(os.path.join(settings.MEDIA_ROOT, "ImagesUnknown")):
+    os.makedirs(os.path.join(settings.MEDIA_ROOT, "ImagesUnknown"))
 
 class FaceDetect(object):
 
