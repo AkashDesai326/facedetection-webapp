@@ -13,11 +13,15 @@ def index(request):
 
 
 def gen(camera, timestamp):
+    is_attendance_registered = False
     while True:
         frame = camera.track_image()
-        if not CameraMonitor.objects.get(id=timestamp).is_need_to_stop_camera:
-            yield (b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+        if not is_attendance_registered and camera.Id:
+            camera.add_attendance(camera.Id)
+            is_attendance_registered = True
+        # if not CameraMonitor.objects.get(id=timestamp).is_need_to_stop_camera:
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
 
 def get_and_save_image(request, id: int, name: str, camera):

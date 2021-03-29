@@ -1,6 +1,6 @@
 import pandas as pd
 import time
-import datetime
+from datetime import datetime
 import cv2, os
 import numpy as np
 import csv
@@ -18,6 +18,7 @@ class FaceDetect(object):
         self.vs = VideoStream(src=0).start()
         # start the FPS throughput estimator
         self.fps = FPS().start()
+        self.Id = None
 
     def __del__(self):
         cv2.destroyAllWindows()
@@ -111,15 +112,14 @@ class FaceDetect(object):
             Id, conf = recognizer.predict(gray[y:y + h, x:x + w])
             if (conf < 50):
                 ts = time.time()
-                date = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d')
-                timeStamp = datetime.datetime.fromtimestamp(ts).strftime('%H:%M:%S')
+                date = datetime.fromtimestamp(ts).strftime('%Y-%m-%d')
+                timeStamp = datetime.fromtimestamp(ts).strftime('%H:%M:%S')
 
                 name = Student.objects.get(id=Id).name
-
-                # aa = df.loc[df['Id'] == Id]['Name'].values
                 tt = str(Id) + "-" + name
                 attendance.loc[len(attendance)] = [Id, name, date, timeStamp]
-
+                if Id:
+                    self.Id = Id
             else:
                 Id = 'Unknown'
                 tt = str(Id)
@@ -132,16 +132,6 @@ class FaceDetect(object):
         et, jpeg = cv2.imencode('.jpg', im)
         return jpeg.tobytes()
 
-    # ts = time.time()
-    # date = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d')
-    # timeStamp = datetime.datetime.fromtimestamp(ts).strftime('%H:%M:%S')
-    # Hour, Minute, Second = timeStamp.split(":")
-    # # fileName = os.path.join(os.path.join(settings.MEDIA_ROOT,"Attendance"),"Attendance_" + date + "_" + Hour + "-" + Minute + "-" + Second + ".csv")
-    # # attendance.to_csv(fileName, index=False)
-    # cam.release()
-    # cv2.destroyAllWindows()
-    # print(attendance)
-
     def get_camera_frame(self):
         frame = self.vs.frame
         et, jpeg = cv2.imencode('.jpg', frame)
@@ -149,3 +139,25 @@ class FaceDetect(object):
 
     def stop_camera(self):
         self.vs.stop()
+
+    def add_attendance(self, Id):
+        start_date = datetime.utcnow()
+        today_date = datetime(start_date.year, start_date.month, start_date.day)
+
+        db_object = Attendance.objects.filter(inTime__gte=today_date, Id=Id)
+        if db_object:
+            try:
+                field_value = getattr(db_object[0], "outTime")
+            except AttributeError:
+                field_value = None
+            if field_value is None:
+                student_obj = Student.objects.get(id=int(Id))
+                if student_obj:
+                    total_attendance = student_obj.totalAttendance
+                    total_attendance += 1
+                    Student.objects.filter(id=int(Id)).update(totalAttendance=total_attendance)
+                Attendance.objects.filter(inTime__gte=today_date, Id=Id).update(outTime=start_date)
+            else:
+                pass
+        else:
+            Attendance.objects.create(Id=Id, inTime=start_date)
