@@ -8,9 +8,11 @@ from imutils.video import VideoStream
 from imutils.video import FPS
 from PIL import Image
 from django.conf import settings
+from .models import Student, Attendance
 
 
 class FaceDetect(object):
+
     def __init__(self):
         # initialize the video stream, then allow the camera sensor to warm up
         self.vs = VideoStream(src=0).start()
@@ -39,7 +41,7 @@ class FaceDetect(object):
                 # saving the captured face in the dataset folder TrainingImage
                 cv2.imwrite(
                     os.path.join(os.path.join(settings.MEDIA_ROOT, "TrainingImage"), f"{name}.{Id}.{sampleNum}.jpg"),
-                                 gray[y:y + h, x:x + w])
+                    gray[y:y + h, x:x + w])
             # display the frame
             # cv2.imshow('frame', img)
             # wait for 100 miliseconds
@@ -96,13 +98,11 @@ class FaceDetect(object):
         recognizer.read(os.path.join(os.path.join(settings.MEDIA_ROOT, "TrainingImageLabel"), "Trainner.yml"))
         harcascadePath = os.path.join(settings.MEDIA_ROOT, "haarcascade_frontalface_default.xml")
         faceCascade = cv2.CascadeClassifier(harcascadePath)
-        df = pd.read_csv(os.path.join(settings.MEDIA_ROOT, "StudentDetails.csv"))
+        # df = pd.read_csv(os.path.join(settings.MEDIA_ROOT, "StudentDetails.csv"))
         self.vs.read()
         font = cv2.FONT_HERSHEY_SIMPLEX
         col_names = ['Id', 'Name', 'Date', 'Time']
         attendance = pd.DataFrame(columns=col_names)
-        # while True:
-        # ret, im = cam.read()
         im = self.vs.frame
         gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
         faces = faceCascade.detectMultiScale(gray, 1.2, 5)
@@ -113,9 +113,12 @@ class FaceDetect(object):
                 ts = time.time()
                 date = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d')
                 timeStamp = datetime.datetime.fromtimestamp(ts).strftime('%H:%M:%S')
-                aa = df.loc[df['Id'] == Id]['Name'].values
-                tt = str(Id) + "-" + aa
-                attendance.loc[len(attendance)] = [Id, aa, date, timeStamp]
+
+                name = Student.objects.get(id=Id).name
+
+                # aa = df.loc[df['Id'] == Id]['Name'].values
+                tt = str(Id) + "-" + name
+                attendance.loc[len(attendance)] = [Id, name, date, timeStamp]
 
             else:
                 Id = 'Unknown'
@@ -126,11 +129,9 @@ class FaceDetect(object):
                             im[y:y + h, x:x + w])
             cv2.putText(im, str(tt), (x, y + h), font, 1, (255, 255, 255), 2)
         attendance = attendance.drop_duplicates(subset=['Id'], keep='first')
-        # cv2.imshow('im', im)
-        # if (cv2.waitKey(1) == ord('q')):
-        # 	break
         et, jpeg = cv2.imencode('.jpg', im)
         return jpeg.tobytes()
+
     # ts = time.time()
     # date = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d')
     # timeStamp = datetime.datetime.fromtimestamp(ts).strftime('%H:%M:%S')
@@ -140,3 +141,11 @@ class FaceDetect(object):
     # cam.release()
     # cv2.destroyAllWindows()
     # print(attendance)
+
+    def get_camera_frame(self):
+        frame = self.vs.frame
+        et, jpeg = cv2.imencode('.jpg', frame)
+        return frame, jpeg.tobytes()
+
+    def stop_camera(self):
+        self.vs.stop()

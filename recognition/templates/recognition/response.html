@@ -3,9 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 </head>
 <body>
     {{response}}
+    <hr>
     <img src="{% url 'track_image' %}">
+    <button>Trigger click event for p element</button>
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script type = "text/javascript" >
+        $('button').click(function (){
+            var id;
+            id = $(this).attr("data-catid");
+            $ajax({
+                type : "GET",
+                url : "closecamera",
+                data :{post_id: id},
+                success: function (data){
+                    console.log("Success");
+                }
+            })
+        })
+
+    </script>
 </body>
 </html>
