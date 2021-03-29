@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static '/admin.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+</head>
+<body>
+<div id="mySidenav" class="sidenav">
+    <!--    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>-->
+    <a href="/adminuser/">Admin</a>
+    <a href="#">Student</a>
+</div>
+<div id="main">
+    <h3>Add Admin</h3>
+    <br>
+    {% if error %}
+    <div class="alert alert-danger">
+        {{error}}
+    </div>
+    {%endif%}
+    <form class="container" method="post" action="/admin/new">{% csrf_token %}
+        <div class="form-row">
+            <div class="form-group">
+                <label for="inputEmail4">Email</label>
+                <input type="email" class="form-control" id="inputEmail4" placeholder="Email" name="email">
+            </div>
+            <div class="form-group">
+                <label for="fullname">Full Name</label>
+                <input type="text" class="form-control" id="fullname" placeholder="Full Name" name="fullname">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlSelect1">Code</label>
+            <select class="form-control" id="exampleFormControlSelect1" name="code">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="phonenumber">Phone Number</label>
+            <input type="text" class="form-control" id="phonenumber" placeholder="Phone Number" name="number">
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="job">Job</label>
+                <select class="form-control" id="job" name="job">
+                    <option value="Designer">Designer</option>
+                    <option value="Manager">Manager</option>
+                    <option value="Developer">Developer</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control col-md-8" id="password" name="password">
+            </div>
+        </div>
+        <hr>
+        <button type="submit" class="btn btn-primary" style="float:right">Save</button>
+    </form>
+</div>
+</body>
+</html>

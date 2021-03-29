@@ -77,8 +77,12 @@
                                         <li><a href="#">
                                             <img src="{% static 'images/search_icon.png' %}" alt="#"/>
                                         </a></li>
-                                        <li><a href="/login/">login</a></li>
-                                        <li><a href="/signup/">signup</a></li>
+                                        {% if request.session.user is None %}
+                                            <li><a href="/login/">login</a></li>
+                                            <li><a href="/signup/">signup</a></li>
+                                        {% else %}
+                                            <li><a href="/logout/">logout</a></li>
+                                        {% endif %}
                                     </ul>
                                 </nav>
                             </div>
