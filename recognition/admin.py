@@ -16,7 +16,7 @@ class CameraMonitoring(admin.ModelAdmin):
 
 
 class StudentDetails(admin.ModelAdmin):
-    pass
+    list_display = ("id", "name", "place", "time", "totalAttendance")
 
 
 admin.site.register(Attendance, AttedanceModel)

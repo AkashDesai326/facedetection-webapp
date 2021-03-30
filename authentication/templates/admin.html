@@ -13,7 +13,7 @@
 <div id="mySidenav" class="sidenav">
     <!--    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>-->
     <a href="/adminuser/">Admin</a>
-    <a href="#">Student</a>
+    <a href="/students/">Student</a>
 </div>
 
 <div id="main">
@@ -68,15 +68,67 @@
                 <td>{{obj.phonenumber}}</td>
                 <td>{{obj.job}}</td>
             </tr>
-
             {% endfor %}
             </tbody>
-
         </table>
-            <button class="btn btn-danger" id="delete" type="submit">Delete</button>
-
+        <br>
+        <button class="btn btn-danger" id="delete" type="submit">Delete</button>
     </form>
     {% endif %}
+
+    {% if studentdata %}
+    <h2>Students</h2>
+    <div style="display: flex; justify-content: space-between;">
+        <div class="search-container">
+            <form style="display: flex">
+                <input type="text" class="form-control" id="myInput" onkeyup="myFunction()" placeholder="Search"
+                       name="search">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+        <button type="button" class="btn btn-success"><a href="/student/add">Add New Student</a></button>
+    </div>
+    <form action="/student/delete" method="post">{% csrf_token %}
+        <table id="customers" class="students">
+            <tr>
+                <th><input type="checkbox" value="all"></th>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Place</th>
+                <th>Total Attandance</th>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="text" class="form-control" id="id" onkeyup="myId()" placeholder="Search"
+                >
+                </td>
+                <td><input type="text" class="form-control" id="name" onkeyup="myName()" placeholder="Search"
+                >
+                </td>
+                <td><input type="text" class="form-control" id="place" onkeyup="myPlace()" placeholder="Search"
+                >
+                </td>
+                <td><input type="text" class="form-control" id="totalattandance" onkeyup="myTotalAttandance()" placeholder="Search"
+                >
+            </tr>
+            <tbody>
+            {% for obj in studentdata %}
+
+            <tr>
+                <td><input type="checkbox" name="student_ids" value="{{obj.id}}"></td>
+                <td>{{obj.id}}</td>
+                <td>{{obj.name}}</td>
+                <td>{{obj.place}}</td>
+                <td>{{obj.totalAttendance}}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <br>
+        <button class="btn btn-danger" id="delete1" type="submit">Delete</button>
+    </form>
+    {% endif %}
+
 </div>
 
 <script>
@@ -164,6 +216,82 @@
         tr = table.getElementsByTagName("tr");
         for (i = 2; i < tr.length; i++) {
             td = tr[i].getElementsByTagName("td")[5];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+    function myId() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("id");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("customers");
+        tr = table.getElementsByTagName("tr");
+        for (i = 2; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+    function myName() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("name");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("customers");
+        tr = table.getElementsByTagName("tr");
+        for (i = 2; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[2];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+    function myPlace() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("place");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("customers");
+        tr = table.getElementsByTagName("tr");
+        for (i = 2; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[3];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+    function myTotalAttandance() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("totalattandance");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("customers");
+        tr = table.getElementsByTagName("tr");
+        for (i = 2; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[4];
             if (td) {
                 txtValue = td.textContent || td.innerText;
                 if (txtValue.toUpperCase().indexOf(filter) > -1) {

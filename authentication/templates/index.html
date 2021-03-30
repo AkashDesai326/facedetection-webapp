@@ -51,7 +51,10 @@
                         <div class="full">
                             <div class="center-desk">
                                 <div class="logo">
-                                    <a href="index.html"><img src="{% static 'images/logo.png' %}" alt="#"/></a>
+                                    <a href="index.html">
+                                        <h2>Easy</h2>
+                                        <h2>Attandance</h2>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -63,17 +66,17 @@
                                     <nav class="main-menu ">
                                         <ul class="menu-area-main">
                                             <li class="active"><a href="index.html">Home</a></li>
+                                            <li><a href="#feature">Feature</a></li>
+                                            <li><a href="#about">About</a></li>
                                             <li>
                                                 <div class="dropdown">
-                                                    <a class="dropbtn">Feature</a>
+                                                    <a class="dropbtn">My Profile</a>
                                                     <div class="dropdown-content">
                                                         <a href="/adminuser/">Admin</a>
-                                                        <a href="#">Student</a>
+                                                        <a href="/students/">Student</a>
                                                     </div>
                                                 </div>
                                             </li>
-                                            <li><a href="#about">About</a></li>
-                                            <li><a href="#learn">My Profile</a></li>
                                             <li><a href="#contact">Contact</a></li>
                                         </ul>
                                     </nav>
@@ -89,7 +92,7 @@
                                         <li><a href="/login/">login</a></li>
                                         <li><a href="/signup/">signup</a></li>
                                         {% else %}
-                                        <li><a>{{request.session.name}}</a></li>
+                                        <li><a href="/admin/profile">{{request.session.name}}</a></li>
                                         <li><a href="/logout/">logout</a></li>
                                         {% endif %}
                                     </ul>
@@ -120,7 +123,7 @@
                                         <div class="text-bg">
                                             <h1>Search your Favorite Course here</h1>
                                             <p>TOP NOTCH COURSES FROM TRAINED PROFESSIONALS</p>
-                                            <a href="#">Read more</a> <a href="#">get a qoute</a>
+                                            <a href="#">Read more</a>
                                         </div>
                                     </div>
                                     <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12">
@@ -142,7 +145,7 @@
                                         <div class="text-bg">
                                             <h1>Search your Favorite Course here</h1>
                                             <p>TOP NOTCH COURSES FROM TRAINED PROFESSIONALS</p>
-                                            <a href="#">Read more</a><a href="#">get a qoute</a>
+                                            <a href="#">Read more</a>
                                         </div>
                                     </div>
 
@@ -167,7 +170,7 @@
                                         <div class="text-bg">
                                             <h1>Search your Favorite Course here</h1>
                                             <p>TOP NOTCH COURSES FROM TRAINED PROFESSIONALS</p>
-                                            <a href="#">Read more</a> <a href="#">get a qoute</a>
+                                            <a href="#">Read more</a>
                                         </div>
                                     </div>
                                     <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12">
@@ -279,7 +282,7 @@
 
 <!-- end our -->
 <!-- Courses -->
-<div id="courses" class="Courses">
+<div id="feature" class="Courses">
     <div class="container-fluid padding_left3">
         <div class="row">
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
@@ -528,7 +531,7 @@
 
                         <div class="col-lg-3 col-md-6 col-sm-6 ">
                             <div class="address">
-                                <a href="index.html"> <img src="{% static 'images/logo1.jpg' %}" alt="logo"></a>
+                                <a href="index.html"> <img src="{% static 'images/cute.jpg' %}" style="border-radius:190px;" alt="logo"></a>
                             </div>
                         </div>
                     </div>

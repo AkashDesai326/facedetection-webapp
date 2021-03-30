@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="{% static '/admin.css' %}">
+    <link rel="stylesheet" href="{% static '/form.css' %}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 </head>
@@ -22,7 +23,7 @@
         {{error}}
     </div>
     {%endif%}
-    <form class="container" method="post" action="/admin/new">{% csrf_token %}
+    <form method="post" action="/admin/new">{% csrf_token %}
         <div class="form-row">
             <div class="form-group">
                 <label for="inputEmail4">Email</label>
@@ -61,9 +62,12 @@
                 <label for="password">Password</label>
                 <input type="password" class="form-control col-md-8" id="password" name="password">
             </div>
+            <hr>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
         </div>
-        <hr>
-        <button type="submit" class="btn btn-primary" style="float:right">Save</button>
+
     </form>
 </div>
 </body>

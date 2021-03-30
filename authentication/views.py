@@ -2,6 +2,7 @@ from django.shortcuts import render, HttpResponse, redirect
 from .models import Admin
 from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth.decorators import login_required
+from recognition.models import Student
 
 # Create your views here.
 
@@ -109,5 +110,40 @@ def deleteadmin(request):
         for email in email_list:
             Admin.objects.get(email=email).delete()
         return redirect('/adminuser/')
+    else:
+        return render(request,'login.html')
+
+def adminprofile(request):
+    user = Admin.objects.get(email=request.session['user'])
+    return render(request,'adminprofile.html', {'user': user})
+
+def students(request):
+    studentdata =Student.objects.all()
+    return render(request, 'admin.html',{'studentdata': studentdata})
+
+def addstudent(request):
+    return render(request, 'newstudent.html')
+
+def newstudent(request):
+    if (request.session.has_key('user')):
+        id = request.POST.get('id')
+        name = request.POST.get('name')
+        place = request.POST.get('place')
+        student = Student.objects.filter(id=id)
+        if len(student) == 0:
+            newStudent = Student.objects.create(id=int(id), name=name, place=place)
+            newStudent.save()
+            return redirect('/students/')
+        else:
+            return render(request, 'newstudent.html', {'error': 'This user name already exists'})
+    else:
+        return render(request, 'login.html')
+
+def deletestudent(request):
+    if (request.session.has_key('user')):
+        student_ids = request.POST.getlist('student_ids')
+        for id in student_ids:
+            Student.objects.get(id=id).delete()
+        return redirect('/students/')
     else:
         return render(request,'login.html')

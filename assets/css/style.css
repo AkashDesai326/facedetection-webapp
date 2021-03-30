@@ -409,6 +409,12 @@ a.readmore_bt {
     padding-bottom: 6px;
 }
 
+.logo h3{
+    color:#200769 !important;
+    font-size: 20px !important;
+    font-weight: 600;
+}
+
 nav.main-menu {
     float: left;
     margin-left: 0;

@@ -1,21 +1,75 @@
 <html>
-  <head>
+<head>
     <title>Real Time Face Recognition</title>
-  </head>
-  <body>
-    <h1>Real Time Face Recognition</h1>
-    <h3>{{response}}</h3>
-    <hr>
-    <form action="/recognition/capture_image" method="post">{% csrf_token %}
-      <input name="name" placeholder="Enter Name">
-      <input name="id" placeholder="Enter Id">
-      <button type="submit">Take Image</button>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        input[type=text], select {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type=submit] {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+
+        div {
+            border-radius: 5px;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        form{
+          background: #dddcdc;
+          padding:20px;
+        }
+
+        a{
+          text-decoration: none;
+          color:white;
+        }
+    </style>
+</head>
+<body>
+<h1>Real Time Face Recognition</h1>
+<h3>{{response}}</h3>
+<hr>
+<div class="row">
+  <div class="col-md-6">
+    <form action="/recognition/capture_image" method="post" >{% csrf_token %}
+        <label for="fname">Name</label>
+        <input type="text" id="fname" name="name" placeholder="Your name..">
+
+        <label for="lname">Id</label>
+        <input type="text" id="lname" name="id" placeholder="Your last name..">
+
+        <input type="submit" value="Submit">
     </form>
     <hr>
-    <button><a href="/recognition/train_image">Train Image</a></button>
-  <hr>
-    <button><a href="/recognition/trackimage"> Track Image</a></button>
-  <hr>
-    <button></button>
-  </body>
+  </div>
+  <div class="col-md-6">
+    <div class="row">
+      <button type="button" class="btn btn-success"><a href="/recognition/train_image">Train Image</a></button>
+    </div>
+    <div class="row">
+      <button type="button" class="btn btn-success"><a href="/recognition/trackimage"> Track Image</a></button>
+    </div>
+  </div>
+</div>
+</body>
 </html>
