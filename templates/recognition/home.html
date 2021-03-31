@@ -1,0 +1,102 @@
+<html>
+<head>
+    <title>Student Information</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        input, select {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 6px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type=submit] {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+
+        div {
+            border-radius: 5px;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        form {
+            background: #dddcdc;
+            padding: 20px;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+        }
+
+        hr {
+            margin: 0px;
+        }
+
+        .row {
+            padding: 0px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Student Information</h2>
+<h3>{{response}}</h3>
+<hr>
+<div class="row">
+    <div class="col-md-6" style="margin: auto;">
+        <form action="/recognition/capture_image" method="post">{% csrf_token %}
+            <label>Id</label>
+            <input type="number"  name="id" placeholder="Your id..">
+
+            <label for="fname">First Name</label>
+            <input type="text" id="fname" name="fname" placeholder="Your first name..">
+
+            <label for="lname">Last Name</label>
+            <input type="text" id="lname" name="lname" placeholder="Your last name..">
+
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email" placeholder="Your email..">
+
+<!--            <label for="date">Birth Date</label>-->
+<!--            <input type="text" id="date" name="birthdate" placeholder="Your birth date..">-->
+
+            <label for="cls">Class</label>
+            <input type="text" id="cls" name="cls" placeholder="Your class..">
+
+            <label for="recidence">Residence</label>
+            <input type="text" id="recidence" name="residence" placeholder="Your recidence..">
+
+            <label for="fathername">Father Name</label>
+            <input type="text" id="fathername" name="fathername" placeholder="Your father name..">
+
+            <label for="contact">Father's Contact</label>
+            <input type="text" id="contact" name="contact" placeholder="Your father's contact number..">
+
+            <input type="submit" value="Take">
+             <button type="button" class="btn btn-success btn-lg btn-block"><a href="/recognition/train_image">Train
+                Image</a></button>
+            <button type="button" class="btn btn-success btn-lg btn-block"><a href="/recognition/trackimage"> Track
+                Image</a></button>
+        </form>
+    </div>
+
+</div>
+</body>
+</html>

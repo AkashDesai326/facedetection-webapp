@@ -9,7 +9,9 @@ from imutils.video import FPS
 from PIL import Image
 from django.conf import settings
 from .models import Student, Attendance
-from twilio.rest import Client
+from email.mime.multipart import MIMEMultipart
+import smtplib, ssl
+from email.mime.text import MIMEText
 
 if not os.path.isdir(os.path.join(settings.MEDIA_ROOT, "TrainingImage")):
     os.makedirs(os.path.join(settings.MEDIA_ROOT, "TrainingImage"))
@@ -124,7 +126,7 @@ class FaceDetect(object):
                 date = datetime.fromtimestamp(ts).strftime('%Y-%m-%d')
                 timeStamp = datetime.fromtimestamp(ts).strftime('%H:%M:%S')
 
-                name = Student.objects.get(id=Id).name
+                name = Student.objects.get(id=Id).fname
                 tt = str(Id) + "-" + name
                 attendance.loc[len(attendance)] = [Id, name, date, timeStamp]
                 if Id:
@@ -164,22 +166,6 @@ class FaceDetect(object):
                 if student_obj:
                     total_attendance = student_obj.totalAttendance
                     total_attendance += 1
-
-
-                    # Your Account Sid and Auth Token from twilio.com/console
-                    # and set the environment variables. See http://twil.io/secure
-                    account_sid = os.environ['AC0394b2b9a006d2f30f3c4a05b0afd134']
-                    auth_token = os.environ['a197f3b248bf26daa6444b57820dd73b']
-                    client = Client(account_sid, auth_token)
-
-                    message = client.messages.create(
-                        body='Hi there!',
-                        from_='+18329813265',
-                        to='+919409483958'
-                    )
-
-                    print(message.sid)
-
 
                     Student.objects.filter(id=int(Id)).update(totalAttendance=total_attendance)
                 Attendance.objects.filter(inTime__gte=today_date, Id=Id).update(outTime=start_date)

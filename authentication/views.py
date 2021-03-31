@@ -127,11 +127,16 @@ def addstudent(request):
 def newstudent(request):
     if (request.session.has_key('user')):
         id = request.POST.get('id')
-        name = request.POST.get('name')
-        place = request.POST.get('place')
+        fname = request.POST.get('fname')
+        lname = request.POST.get('lname')
+        email = request.POST.get('email')
+        cls = request.POST.get('cls')
+        fathername = request.POST.get('fathername')
+        contact = request.POST.get('contact')
+        residence = request.POST.get('residence')
         student = Student.objects.filter(id=id)
         if len(student) == 0:
-            newStudent = Student.objects.create(id=int(id), name=name, place=place)
+            newStudent = Student.objects.create(id=int(id), fname=fname, lname=lname, email=email,cls=cls,residence=residence, fathername=fathername,contact=contact)
             newStudent.save()
             return redirect('/students/')
         else:

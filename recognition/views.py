@@ -24,8 +24,8 @@ def gen(camera, timestamp):
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
 
-def get_and_save_image(request, id: int, name: str, camera):
-    detect_obj = DetectFace(id, name)
+def get_and_save_image(request, id:int,name,lname, email,cls,residence,fathername,contact, camera):
+    detect_obj = DetectFace(id, name,lname,email,cls,residence,fathername,contact)
 
     for i in range(detect_obj.sample_num):
         frame, bytes = camera.get_camera_frame()
@@ -41,8 +41,19 @@ def get_and_save_image(request, id: int, name: str, camera):
 
 def capture_image(request):
     face_obj = FaceDetect()
+    print(request.POST.get('id'))
     return StreamingHttpResponse(
-        get_and_save_image(request, int(request.POST.get("id")), request.POST.get("name"), face_obj),
+        get_and_save_image(request,
+                           int(request.POST.get("id")),
+                           request.POST.get("fname"),
+                           request.POST.get("lname"),
+                           request.POST.get("email"),
+                           # request.POST.get("birthdate"),
+                           request.POST.get("cls"),
+                           request.POST.get("residence"),
+                           request.POST.get("fathername"),
+                           int(request.POST.get("contact")),
+                           face_obj),
         content_type='multipart/x-mixed-replace; boundary=frame')
 
     # response = FaceDetect().take_image(int(request.POST.get("id")), request.POST.get("name"))

@@ -68,16 +68,23 @@
                                             <li class="active"><a href="index.html">Home</a></li>
                                             <li><a href="#feature">Feature</a></li>
                                             <li><a href="#about">About</a></li>
-                                            <li>
-                                                <div class="dropdown">
-                                                    <a class="dropbtn">My Profile</a>
-                                                    <div class="dropdown-content">
-                                                        <a href="/adminuser/">Admin</a>
-                                                        <a href="/students/">Student</a>
-                                                    </div>
-                                                </div>
-                                            </li>
+<!--                                            <li>-->
+<!--                                                <div class="dropdown">-->
+<!--                                                    <a class="dropbtn">My Profile</a>-->
+<!--                                                    <div class="dropdown-content">-->
+<!--                                                        <a href="/adminuser/">Admin</a>-->
+<!--                                                        <a href="/students/">Student</a>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </li>-->
                                             <li><a href="#contact">Contact</a></li>
+
+                                            {% if request.session.user is not None %}
+                                            <li><a href="/recognition/">New Student</a></li>
+                                            <li><a href="/adminuser/">Admin</a></li>
+                                            <li><a href="/students/">Students</a></li>
+                                            <li><a href="">Student Profile</a></li>
+                                            {%endif%}
                                         </ul>
                                     </nav>
                                 </div>
