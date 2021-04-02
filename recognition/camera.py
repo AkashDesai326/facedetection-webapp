@@ -9,6 +9,9 @@ from imutils.video import FPS
 from PIL import Image
 from django.conf import settings
 from .models import Student, Attendance
+from email.mime.multipart import MIMEMultipart
+import smtplib, ssl
+from email.mime.text import MIMEText
 
 if not os.path.isdir(os.path.join(settings.MEDIA_ROOT, "TrainingImage")):
     os.makedirs(os.path.join(settings.MEDIA_ROOT, "TrainingImage"))
@@ -123,7 +126,7 @@ class FaceDetect(object):
                 date = datetime.fromtimestamp(ts).strftime('%Y-%m-%d')
                 timeStamp = datetime.fromtimestamp(ts).strftime('%H:%M:%S')
 
-                name = Student.objects.get(id=Id).name
+                name = Student.objects.get(id=Id).fname
                 tt = str(Id) + "-" + name
                 attendance.loc[len(attendance)] = [Id, name, date, timeStamp]
                 if Id:
@@ -163,6 +166,7 @@ class FaceDetect(object):
                 if student_obj:
                     total_attendance = student_obj.totalAttendance
                     total_attendance += 1
+
                     Student.objects.filter(id=int(Id)).update(totalAttendance=total_attendance)
                 Attendance.objects.filter(inTime__gte=today_date, Id=Id).update(outTime=start_date)
             else:

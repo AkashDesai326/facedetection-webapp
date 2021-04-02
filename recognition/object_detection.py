@@ -8,18 +8,27 @@ from PIL import Image
 
 class DetectFace:
 
-    def __init__(self, Id: int, Name: str, sample_num: int = 50):
+    def __init__(self, Id, Name,Lname, Email,Cls,Residence,Fathername,Contact, sample_num: int = 50):
         self.xml_file = "haarcascade_frontalface_default.xml"
         self.xml_path = os.path.join(settings.MEDIA_ROOT, self.xml_file)
         self.Id = Id
         self.Name = Name
+        self.Lname = Lname
+        self.Email = Email
+        # self.Birthdate = Birthdate
+        self.Cls = Cls
+        self.Residence = Residence
+        self.Fathername = Fathername
+        self.Contact = Contact
+
+
         self.sample_num = sample_num
         self.detector = cv2.CascadeClassifier(self.xml_path)
         self.recognizer = cv2.face_LBPHFaceRecognizer.create()
         self.harcascadePath = os.path.join(settings.MEDIA_ROOT, self.xml_path)
 
     def save_details(self):
-        Student.objects.create(name=self.Name, id=self.Id)
+        Student.objects.create(fname=self.Name, id=self.Id , lname=self.Lname , email=self.Email, cls=self.Cls, fathername=self.Fathername, contact=self.Contact, residence=self.Residence)
 
     def gray_and_save_image(self, frame, num):
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)

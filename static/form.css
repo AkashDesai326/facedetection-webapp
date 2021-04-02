@@ -1,0 +1,19 @@
+.btn{
+  padding:10px 20px !important;
+}
+
+form{
+  background-color:#dbdbdb !important;
+  padding:20px;
+  border-radius: 5px;
+  width:40%;
+}
+
+label{
+  font-size: 18px;
+}
+
+input, select{
+  margin:8px 0px !important;
+  padding:12px 15px !important;
+}

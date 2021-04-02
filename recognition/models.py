@@ -11,8 +11,14 @@ class Recognition(models.Model):
 
 class Student(models.Model):
     id = models.IntegerField(primary_key=True)
-    name = models.CharField(max_length=20, blank=True, null=True)
-    place = models.CharField(max_length=50,blank=True, null=True)
+    fname = models.CharField(max_length=20, blank=True, null=True)
+    lname = models.CharField(max_length=20, blank=True, null=True)
+    email = models.CharField(max_length=30, blank=True, null=True)
+    birthdate = models.DateField(blank=True, null=True)
+    cls = models.CharField(max_length=20, blank=True, null=True)
+    residence = models.CharField(max_length=50, blank=True, null=True)
+    fathername = models.CharField(max_length=20, blank=True, null=True)
+    contact = models.IntegerField(default=0)
     time = models.DateTimeField(blank=True, null=True)
     totalAttendance = models.IntegerField(default=0)
 
