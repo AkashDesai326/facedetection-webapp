@@ -52,8 +52,7 @@
                             <div class="center-desk">
                                 <div class="logo">
                                     <a href="index.html">
-                                        <h2>Easy</h2>
-                                        <h2>Attandance</h2>
+                                        <img src="{% static 'images/logo.png' %}">
                                     </a>
                                 </div>
                             </div>
@@ -66,17 +65,17 @@
                                     <nav class="main-menu ">
                                         <ul class="menu-area-main">
                                             <li class="active"><a href="index.html">Home</a></li>
-                                            <li><a href="#feature">Feature</a></li>
+<!--                                            <li><a href="#feature">Feature</a></li>-->
+                                            <li>
+                                                <div class="dropdown">
+                                                    <a href="#feature" class="dropbtn">Feature</a>
+                                                    <div class="dropdown-content">
+                                                        <a href="/student/">Attandance Management</a>
+                                                        <a href="/students/">Student</a>
+                                                    </div>
+                                                </div>
+                                            </li>
                                             <li><a href="#about">About</a></li>
-<!--                                            <li>-->
-<!--                                                <div class="dropdown">-->
-<!--                                                    <a class="dropbtn">My Profile</a>-->
-<!--                                                    <div class="dropdown-content">-->
-<!--                                                        <a href="/adminuser/">Admin</a>-->
-<!--                                                        <a href="/students/">Student</a>-->
-<!--                                                    </div>-->
-<!--                                                </div>-->
-<!--                                            </li>-->
                                             <li><a href="#contact">Contact</a></li>
 
                                             {% if request.session.user is not None %}

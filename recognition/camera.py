@@ -166,6 +166,40 @@ class FaceDetect(object):
                 if student_obj:
                     total_attendance = student_obj.totalAttendance
                     total_attendance += 1
+                    # sender_email = "akashdesai428@gmail.com"
+                    # password = 'gmail@428'
+                    # msg = MIMEMultipart('alternative')
+                    # receiver_email = 'akashdesai428@gmail.com'
+                    # msg['Subject'] = "Visualize"
+                    # msg['From'] = sender_email
+                    # msg['To'] = 'akashdesai428@gmail.com'
+                    #
+                    # # Create the body of the message (a plain-text and an HTML version).
+                    # text = "Hi!\nHow are you?\nHere is the link you wanted:\nhttp://www.python.org"
+                    # time_stamp = time.time()
+                    # params = {'stamp': f'{time_stamp}'}
+                    # html = """\
+                    #         <html>
+                    #           <head></head>
+                    #           <body>
+                    #             <p>Hi!<br>
+                    #                Reset your password from below link<br>
+                    #                <hr>
+                    #                <a href="http://127.0.0.1:8000/dashboard/reset/password/form/""" + """">Reset your Password</a> you wanted.
+                    #             </p>
+                    #           </body>
+                    #         </html>
+                    #         """
+                    # part1 = MIMEText(text, 'plain')
+                    # part2 = MIMEText(html, 'html')
+                    # msg.attach(part1)
+                    # msg.attach(part2)
+                    # context = ssl.create_default_context()
+                    # with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+                    #     server.login(sender_email, password)
+                    #     server.sendmail(
+                    #         sender_email, receiver_email, msg.as_string()
+                    #     )
 
                     Student.objects.filter(id=int(Id)).update(totalAttendance=total_attendance)
                 Attendance.objects.filter(inTime__gte=today_date, Id=Id).update(outTime=start_date)
